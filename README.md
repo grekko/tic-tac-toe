@@ -25,6 +25,18 @@ ruby tictactoe.rb
 ```
 
 
-## Web Version
+## Development
 
-Not yet implemented
+Unit tests are written with rspec (see: [specs](/specs)) and acceptance tests are written
+with aruba (see: [features](/features)).
+
+Run all tests with:
+
+```
+rake
+```
+
+Code coverage:
+```
+open coverage/index.html
+```
