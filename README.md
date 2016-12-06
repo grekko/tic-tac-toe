@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/grekko/tic-tac-toe.svg?branch=master)](https://travis-ci.org/grekko/tic-tac-toe)
 [![Test Coverage](https://codeclimate.com/github/grekko/tic-tac-toe/badges/coverage.svg)](https://codeclimate.com/github/grekko/tic-tac-toe/coverage)
 
-Ruby implementation of an unbeatable tic-tac-toe program for my 8th light application.
+Ruby implementation of an unbeatable tic-tac-toe program.
 
 
 ## Feature requirements
