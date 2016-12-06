@@ -1,5 +1,7 @@
 # Tic Tac Toe
 
+[![Build Status](https://travis-ci.org/grekko/tic-tac-toe.svg?branch=master)](https://travis-ci.org/grekko/tic-tac-toe)
+
 Ruby implementation of an unbeatable tic-tac-toe program for my 8th light application.
 
 
