@@ -18,7 +18,11 @@ Ruby implementation of an unbeatable tic-tac-toe program for my 8th light applic
 
 ## CLI Version
 
-The CLI version requires at least ruby version 2.3. Start the program with `ruby tictactoe.rb`
+The CLI version requires at least ruby version 2.3. Run the program with
+
+```
+ruby tictactoe.rb
+```
 
 
 ## Web Version
