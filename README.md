@@ -16,11 +16,12 @@ Ruby implementation of an unbeatable tic-tac-toe program for my 8th light applic
 * The user can choose which player goes first
 
 
-## CLI Version
+## Usage
 
-The CLI version requires at least ruby version 2.3. Run the program with
+You should have ruby 2.3.1 installed.
 
 ```
+bundle install
 ruby tictactoe.rb
 ```
 
@@ -36,7 +37,7 @@ Run all tests with:
 rake
 ```
 
-Code coverage:
+Generate code coverage report or have a look at [Codeclimate](https://codeclimate.com/github/grekko/tic-tac-toe/coverage)
 ```
 open coverage/index.html
 ```
