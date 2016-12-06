@@ -2,14 +2,24 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.3.0)
+    byebug (8.2.2)
     codeclimate-test-reporter (1.0.3)
       simplecov
+    coderay (1.1.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
     json (2.0.2)
+    method_source (0.8.2)
     parser (2.3.3.1)
       ast (~> 2.2)
     powerpack (0.1.1)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
+      pry (~> 0.10)
     rainbow (2.1.0)
     rake (11.1.2)
     rspec (3.5.0)
@@ -37,6 +47,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    slop (3.6.0)
     unicode-display_width (1.1.1)
 
 PLATFORMS
@@ -44,6 +55,8 @@ PLATFORMS
 
 DEPENDENCIES
   codeclimate-test-reporter (~> 1.0.0)
+  pry
+  pry-byebug
   rake
   rspec
   rubocop
