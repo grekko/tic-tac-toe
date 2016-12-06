@@ -1,3 +1,5 @@
 # frozen_string_literal: true
 
-raise "Nothing here yet!"
+require_relative "lib/tic_tac_toe/cli"
+
+TicTacToe::Cli.new(stdin: $stdin, stdout: $stdout)
