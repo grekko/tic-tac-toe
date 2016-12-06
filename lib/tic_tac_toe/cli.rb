@@ -9,5 +9,15 @@ module TicTacToe
       @stdin  = stdin
       @stdout = stdout
     end
+
+    def start_game
+      writeln "Welcome!"
+    end
+
+    private
+
+    def writeln(msg)
+      $stdout.write "#{msg}\n"
+    end
   end
 end

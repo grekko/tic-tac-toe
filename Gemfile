@@ -9,7 +9,9 @@ group :development, :test do
 end
 
 group :test do
+  gem "aruba", "~> 0.14.2"
   gem "codeclimate-test-reporter", "~> 1.0.0"
+  gem "cucumber"
   gem "rspec"
   gem "rubocop",   require: false
   gem "simplecov", require: false
