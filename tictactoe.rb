@@ -2,5 +2,5 @@
 
 require_relative "lib/tic_tac_toe/cli"
 
-cli = TicTacToe::Cli.new(stdin: $stdin, stdout: $stdout)
+cli = TicTacToe::Cli.new
 cli.start_game
