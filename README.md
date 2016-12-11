@@ -28,10 +28,7 @@ ruby tictactoe.rb
 
 ## Development
 
-Unit tests are written with [rspec](https://github.com/rspec/rspec) ([/spec](/tree/master/spec)-Directory) and acceptance tests are written
-with [aruba](https://github.com/cucumber/aruba) ([/features](/tree/master/features)).
-
-Run all tests with:
+Tests are written with [rspec](https://github.com/rspec/rspec) ([/spec](/tree/master/spec)-Directory). Run them all with:
 
 ```
 rake
