@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TicTacToe
+class TicTacToe
   # Handles players and the game board
   class Match
     attr_accessor :players
