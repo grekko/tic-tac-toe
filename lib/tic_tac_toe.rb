@@ -46,7 +46,7 @@ class TicTacToe
       "Second Player" => "0",
     }.map do |(player, symbol)|
       player_type(
-        number: highline.ask("#{player}: ", Integer) { |q| q.in = 1..2 },
+        number: pick_player_number("#{player} #{symbol}"),
         symbol: symbol,
       )
     end
@@ -60,6 +60,10 @@ class TicTacToe
   end
 
   private
+
+  def pick_player_number(question)
+    highline.ask("#{question}: ", Integer) { |q| q.in = 1..2 }
+  end
 
   def continue_with_next_match_or_exit
     exit unless highline.agree("Want to play another round?")
