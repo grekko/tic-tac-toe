@@ -7,6 +7,7 @@ class TicTacToe
 
     def initialize(players)
       @players = players
+      @board = Board.new
     end
 
     def next_player
@@ -14,7 +15,7 @@ class TicTacToe
     end
 
     def game_over?
-      true
+      board.solved?
     end
   end
 end

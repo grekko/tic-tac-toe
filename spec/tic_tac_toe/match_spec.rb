@@ -31,8 +31,18 @@ RSpec.describe TicTacToe::Match do
         allow(subject.board).to receive(:solved?).and_return(true)
       end
 
-      it "returns true" do
+      it "is over" do
         expect(subject).to be_game_over
+      end
+    end
+
+    context "with a not-yet solved board" do
+      before do
+        allow(subject.board).to receive(:solved?).and_return(false)
+      end
+
+      it "is not over" do
+        expect(subject).to_not be_game_over
       end
     end
   end
