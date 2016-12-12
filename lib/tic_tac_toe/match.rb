@@ -8,6 +8,7 @@ class TicTacToe
     def initialize(players)
       @players = players
       @board = Board.new
+      @players.each { |player| player.board = @board }
     end
 
     def next_player

@@ -3,10 +3,24 @@
 require "helper"
 
 RSpec.describe TicTacToe::Match do
+  class FakePlayer
+    attr_accessor :board
+  end
+
   subject { described_class.new players }
   let(:players) { [first, second] }
-  let(:first)   { double("First Player") }
-  let(:second)  { double("Second Player") }
+  let(:first)   { FakePlayer.new }
+  let(:second)  { FakePlayer.new }
+
+  describe "#initialize" do
+    let(:board) { subject.board }
+
+    it "gives each player access to the game board" do
+      expect(board).not_to be_nil
+      expect(first.board).to eq(board)
+      expect(second.board).to eq(board)
+    end
+  end
 
   describe "#next_player" do
     it "returns the first player" do
