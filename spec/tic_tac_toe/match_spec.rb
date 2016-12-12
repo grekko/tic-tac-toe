@@ -8,18 +8,20 @@ RSpec.describe TicTacToe::Match do
   let(:first)   { double("First Player") }
   let(:second)  { double("Second Player") }
 
-  describe "#current_player" do
-    it "returns the first player" do
-      expect(subject.current_player).to eq(first)
-    end
-  end
-
-  describe "#start_with" do
-  end
-
   describe "#next_player" do
-  end
+    it "returns the first player" do
+      expect(subject.next_player).to eq(first)
+    end
 
-  describe "#game_over?" do
+    it "returns the second player when being called twice" do
+      subject.next_player
+      expect(subject.next_player).to eq(second)
+    end
+
+    it "returns the first player again, when being called three times" do
+      subject.next_player
+      subject.next_player
+      expect(subject.next_player).to eq(first)
+    end
   end
 end

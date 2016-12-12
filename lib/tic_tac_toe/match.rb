@@ -9,8 +9,7 @@ class TicTacToe
       @players = players
     end
 
-    def current_player
-      @players.first
+    def next_player
+      players.rotate!.last
     end
-  end
 end

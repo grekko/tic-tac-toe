@@ -19,18 +19,22 @@ class TicTacToe
 
   def start_game_loop
     loop do
-      match = Match.new pick_players
+      match = Match.new picked_players_in_starting_order
       loop do
-        match.current_player.make_move
+        player = match.next_player
+        player.make_move
         break if match.game_over?
-        match.next_player
       end
-      writeln "Congrats! #{match.current_player} won!"
+      writeln "Congrats! #{player} won!"
       continue_with_next_match_or_exit
     end
   end
 
-  def pick_starting_player
+  def picked_players_in_starting_order
+    pick_players.reverse.rotate starting_player
+  end
+
+  def starting_player
     display "Choose which player (1 or 2) should start."
     highline.ask("Choose: ", Integer) { |q| q.in = 1..2 }
   end
