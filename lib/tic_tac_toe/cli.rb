@@ -1,11 +1,14 @@
+# frozen_string_literal: true
 require "highline"
 
 module TicTacToe
+  # TODO
   class Cli
     attr_accessor :stdin, :stdout
 
     def initialize(stdin: $stdin, stdout: $stdout)
-      @stdin, @stdout = stdin, stdout
+      @stdin  = stdin
+      @stdout = stdout
     end
 
     def run
@@ -14,12 +17,8 @@ module TicTacToe
       loop do
         match = Game::Match.new pick_players
         match.start_with pick_starting_player
-        while match.active? do
-          match.next_player.make_move
-          if match.game_over?
-            writeln "Congrats! #{match.current_player} won!"
-          end
-        end
+        match.next_player.make_move until match.game_over?
+        writeln "Congrats! #{match.current_player} won!" if match.game_over?
       end
     end
 
@@ -34,7 +33,10 @@ module TicTacToe
         "First Player"  => "X",
         "Second Player" => "0",
       }.map do |(player, symbol)|
-        player_type number: highline.ask("#{player}: ", Integer) { |q| q.in = 1..2 }, symbol: symbol
+        player_type(
+          number: highline.ask("#{player}: ", Integer) { |q| q.in = 1..2 },
+          symbol: symbol,
+        )
       end
     end
 
