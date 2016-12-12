@@ -24,4 +24,16 @@ RSpec.describe TicTacToe::Match do
       expect(subject.next_player).to eq(first)
     end
   end
+
+  describe "#game_over?" do
+    context "with a solved board" do
+      before do
+        allow(subject.board).to receive(:solved?).and_return(true)
+      end
+
+      it "returns true" do
+        expect(subject).to be_game_over
+      end
+    end
+  end
 end
