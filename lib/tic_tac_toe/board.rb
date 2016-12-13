@@ -3,5 +3,8 @@
 class TicTacToe
   # Represents game board
   class Board
+    def solved?
+      false
+    end
   end
 end

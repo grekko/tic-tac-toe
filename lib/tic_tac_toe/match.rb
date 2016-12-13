@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "board"
+
 class TicTacToe
   # Handles players and the game board
   class Match

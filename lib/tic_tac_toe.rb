@@ -2,6 +2,8 @@
 
 require "highline"
 require_relative "tic_tac_toe/match"
+require_relative "tic_tac_toe/human_player"
+require_relative "tic_tac_toe/computer_player"
 
 # TODO
 class TicTacToe
@@ -10,10 +12,10 @@ class TicTacToe
   def initialize(stdin: $stdin, stdout: $stdout)
     @stdin  = stdin
     @stdout = stdout
+    @stdout.sync = true # Enables immediate flushing
   end
 
   def start
-    display "Welcome to Tic Tac Toe"
     start_game_loop
   end
 
@@ -31,12 +33,14 @@ class TicTacToe
   end
 
   def picked_players_in_starting_order
-    pick_players.reverse.rotate starting_player
+    pick_players.reverse.rotate(starting_player).tap do |players|
+      writeln "You choose #{players[0]} vs #{players[1]}"
+    end
   end
 
   def starting_player
-    display "Choose which player (1 or 2) should start."
-    highline.ask("Choose: ", Integer) { |q| q.in = 1..2 }
+    reset_screen
+    ask("Choose which player (1 or 2) should start:\n", Integer) { |q| q.in = 1..2 }
   end
 
   def pick_players
@@ -54,19 +58,23 @@ class TicTacToe
 
   def player_type(number:, symbol:)
     {
-      0 => HumanPlayer,
-      1 => ComputerPlayer,
+      1 => HumanPlayer,
+      2 => ComputerPlayer,
     }[number].new symbol: symbol, stdin: stdin, stdout: stdout
   end
 
   private
 
+  def ask(*args, &blok)
+    highline.ask(*args, &blok)
+  end
+
   def pick_player_number(question)
-    highline.ask("#{question}: ", Integer) { |q| q.in = 1..2 }
+    ask("#{question}:\n", Integer) { |q| q.in = 1..2 }
   end
 
   def continue_with_next_match_or_exit
-    exit unless highline.agree("Want to play another round?")
+    exit unless highline.agree("Want to play another round?\n")
   end
 
   def highline

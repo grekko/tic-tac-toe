@@ -6,3 +6,6 @@ Style/TrailingCommaInLiteral:
 
 Style/TrailingCommaInArguments:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 100
