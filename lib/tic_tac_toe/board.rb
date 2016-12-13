@@ -21,6 +21,10 @@ class TicTacToe
       end
     end
 
+    def full?
+      !empty_fields.any?
+    end
+
     def update(field:, symbol:)
       fields[field - 1] = symbol
     end
