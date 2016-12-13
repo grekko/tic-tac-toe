@@ -16,7 +16,11 @@ class TicTacToe
       cli.clear
       cli.print turn_message
       sleep 2
-      board.update field: board.empty_fields.first, symbol: symbol
+      board.update field: pick_field, symbol: symbol
+    end
+
+    def pick_field
+      Minimax.new(board).pick_field_with_highest_score
     end
 
     def to_s

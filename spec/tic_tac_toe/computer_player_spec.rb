@@ -5,16 +5,18 @@ require "helper"
 RSpec.describe TicTacToe::ComputerPlayer do
   subject     { described_class.new number: 2, symbol: "π", cli: cli }
   let(:cli)   { instance_double("TicTacToe::Cli", clear: true, print: true) }
-  let(:board) { instance_double("TicTacToe::Board", empty_fields: %w(2 3 4)) }
+  let(:board) { TicTacToe::Board.new }
 
   before do
     subject.board = board
   end
 
-  describe "#make_move" do
-    it "always takes the lowest available empty field" do
-      expect(board).to receive(:update).with(field: "2", symbol: subject.symbol)
-      subject.make_move
+  describe "#pick_field" do
+    let(:minimax) { instance_double("Minimax", pick_field_with_highest_score: 1) }
+
+    it "delegates the pick to Minimax" do
+      expect(Minimax).to receive(:new).with(board).and_return(minimax)
+      expect(subject.pick_field).to eq(minimax.pick_field_with_highest_score)
     end
   end
 
