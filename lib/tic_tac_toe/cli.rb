@@ -25,6 +25,10 @@ class TicTacToe
       writeln msg
     end
 
+    def print(msg)
+      say msg
+    end
+
     def clear
       reset_screen
     end

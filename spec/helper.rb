@@ -51,4 +51,18 @@ class SpawnedProcess
   end
 end
 
+class CliParsedBoard
+  BOARD_REGEXP = /(.+)\s---\+---\+---\n(.+)\s---\+---\+---\s(.+)/
+
+  def initialize(string)
+    @string = string
+  end
+
+  def to_a
+    if match = @string.gsub("\r", "").match(BOARD_REGEXP)
+      match.captures.map { |line| line.split(?|).map(&:strip) }.flatten
+    end
+  end
+end
+
 Dir[__dir__ + "/../lib/**/*.rb"].each { |f| require f }

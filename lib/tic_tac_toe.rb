@@ -19,9 +19,10 @@ class TicTacToe
       loop do
         player = match.next_player
         player.make_move
-        break if match.game_over?
+        if match.game_over?
+          cli.say "Congrats! #{player} won!"
+        end
       end
-      cli.say "Congrats! #{player} won!"
       continue_with_next_match_or_exit
     end
   end
@@ -42,9 +43,10 @@ class TicTacToe
     {
       "First Player"  => "X",
       "Second Player" => "0",
-    }.map do |(player, symbol)|
+    }.each_with_index.map do |(player, symbol), index|
       player_type(
-        number: pick_player_number("#{player} #{symbol}"),
+        type: pick_player_type("#{player} #{symbol}"),
+        number: index+1,
         symbol: symbol,
       )
     end
@@ -55,17 +57,20 @@ class TicTacToe
     cli.say "Pick either a Human (1) or Computer (2) player."
   end
 
-  def player_type(number:, symbol:)
+  def player_type(type:, number:, symbol:)
     {
-      1 => HumanPlayer,
-      2 => ComputerPlayer,
-    }[number].new symbol: symbol, cli: cli
+      human: HumanPlayer,
+      computer: ComputerPlayer,
+    }[type].new number: number, symbol: symbol, cli: cli
   end
 
   private
 
-  def pick_player_number(question)
-    cli.ask("#{question}:\n", Integer) { |q| q.in = 1..2 }
+  def pick_player_type(question)
+    {
+      1 => :human,
+      2 => :computer,
+    }[cli.ask("#{question}:\n", Integer) { |q| q.in = 1..2 }]
   end
 
   def continue_with_next_match_or_exit
