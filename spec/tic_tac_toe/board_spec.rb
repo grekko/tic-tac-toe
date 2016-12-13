@@ -41,6 +41,42 @@ RSpec.describe TicTacToe::Board do
     end
   end
 
+  describe "full?" do
+    context "for an empty board" do
+      it "returns false" do
+        expect(subject).to_not be_full
+      end
+    end
+
+    context "for a partial filled board" do
+      before do
+        subject.fields = [
+          "X", nil, nil,
+          "0", nil, "X",
+          nil, "X", "0"
+        ]
+      end
+
+      it "returns false" do
+        expect(subject).to_not be_full
+      end
+    end
+
+    context "for a full board" do
+      before do
+        subject.fields = [
+          "X", "0", "X",
+          "0", "0", "X",
+          "X", "X", "0"
+        ]
+      end
+
+      it "returns true" do
+        expect(subject).to be_full
+      end
+    end
+  end
+
   describe "#empty_fields" do
     context "for a new board" do
       it "returns all fields" do
