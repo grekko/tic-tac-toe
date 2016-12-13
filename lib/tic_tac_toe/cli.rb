@@ -5,12 +5,13 @@ require "highline"
 class TicTacToe
   # Encapsulates communication with commandline
   class Cli
-    attr_reader :stdin, :stdout
+    attr_reader :stdin, :stdout, :highline
 
     def initialize(stdin: $stdin, stdout: $stdout)
       @stdin  = stdin
       @stdout = stdout
       @stdout.sync = true # Enables immediate flushing
+      @highline ||= HighLine.new(stdin, stdout)
     end
 
     def ask(*args, &blok)
@@ -34,10 +35,6 @@ class TicTacToe
     end
 
     private
-
-    def highline
-      @highline ||= HighLine.new(stdin, stdout)
-    end
 
     def reset_screen
       wipe_screen
