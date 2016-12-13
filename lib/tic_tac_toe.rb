@@ -33,10 +33,8 @@ class TicTacToe
     loop do
       player = match.next_player
       player.make_move
-      if match.game_over?
-        cli.say "Congrats! #{player} won!"
-        break
-      end
+      cli.say("Congrats! #{player} won!") && break if match.game_won?
+      cli.say("Nobody wins!") && break if match.board_full?
     end
   end
 
