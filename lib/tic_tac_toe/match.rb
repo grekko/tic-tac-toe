@@ -17,8 +17,12 @@ class TicTacToe
       players.rotate!.last
     end
 
-    def game_over?
+    def game_won?
       board.solved?
+    end
+
+    def board_full?
+      board.full?
     end
   end
 end

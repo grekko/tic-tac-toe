@@ -39,14 +39,36 @@ RSpec.describe TicTacToe::Match do
     end
   end
 
-  describe "#game_over?" do
+  describe "#board_full?" do
+    context "with a full board" do
+      before do
+        allow(subject.board).to receive(:full?).and_return(true)
+      end
+
+      it "returns true" do
+        expect(subject).to be_board_full
+      end
+    end
+
+    context "with a board not yet full" do
+      before do
+        allow(subject.board).to receive(:full?).and_return(false)
+      end
+
+      it "returns false" do
+        expect(subject).to_not be_board_full
+      end
+    end
+  end
+
+  describe "#game_won?" do
     context "with a solved board" do
       before do
         allow(subject.board).to receive(:solved?).and_return(true)
       end
 
       it "is over" do
-        expect(subject).to be_game_over
+        expect(subject).to be_game_won
       end
     end
 
@@ -56,7 +78,7 @@ RSpec.describe TicTacToe::Match do
       end
 
       it "is not over" do
-        expect(subject).to_not be_game_over
+        expect(subject).to_not be_game_won
       end
     end
   end
