@@ -3,6 +3,8 @@
 class TicTacToe
   # Represents game board
   class Board
+    attr_accessor :fields
+
     def initialize
       @fields = [
         nil, nil, nil,
@@ -20,11 +22,11 @@ class TicTacToe
     end
 
     def update(field:, symbol:)
-      @fields[field - 1] = symbol
+      fields[field - 1] = symbol
     end
 
     def empty_fields
-      @fields.each_with_index.map { |f, i| [f.nil?, i + 1] }.select { |b, _| b }.map(&:last)
+      fields.each_with_index.map { |f, i| [f.nil?, i + 1] }.select { |b, _| b }.map(&:last)
     end
 
     def to_s
@@ -50,11 +52,11 @@ class TicTacToe
     end
 
     def symbols
-      @fields.uniq.compact
+      fields.uniq.compact
     end
 
     def field(id)
-      @fields[id] || id + 1
+      fields[id] || id + 1
     end
   end
 end
