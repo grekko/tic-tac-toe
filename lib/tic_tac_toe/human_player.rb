@@ -5,10 +5,9 @@ class TicTacToe
   class HumanPlayer
     attr_accessor :board
 
-    def initialize(symbol:, stdin:, stdout:)
+    def initialize(symbol:, cli:)
       @symbol = symbol
-      @stdin  = stdin
-      @stdout = stdout
+      @cli    = cli
     end
 
     def make_move

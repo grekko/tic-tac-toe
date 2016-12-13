@@ -1,25 +1,19 @@
 # frozen_string_literal: true
 
-require "highline"
+require_relative "tic_tac_toe/cli"
 require_relative "tic_tac_toe/match"
 require_relative "tic_tac_toe/human_player"
 require_relative "tic_tac_toe/computer_player"
 
 # TODO
 class TicTacToe
-  attr_accessor :stdin, :stdout
+  attr_reader :cli
 
   def initialize(stdin: $stdin, stdout: $stdout)
-    @stdin  = stdin
-    @stdout = stdout
-    @stdout.sync = true # Enables immediate flushing
+    @cli = Cli.new(stdin: stdin, stdout: stdout)
   end
 
   def start
-    start_game_loop
-  end
-
-  def start_game_loop
     loop do
       match = Match.new picked_players_in_starting_order
       loop do
@@ -27,24 +21,24 @@ class TicTacToe
         player.make_move
         break if match.game_over?
       end
-      writeln "Congrats! #{player} won!"
+      cli.say "Congrats! #{player} won!"
       continue_with_next_match_or_exit
     end
   end
 
   def picked_players_in_starting_order
     pick_players.reverse.rotate(starting_player).tap do |players|
-      writeln "You choose #{players[0]} vs #{players[1]}"
+      cli.say "You choose #{players[0]} vs #{players[1]}"
     end
   end
 
   def starting_player
-    reset_screen
-    ask("Choose which player (1 or 2) should start:\n", Integer) { |q| q.in = 1..2 }
+    cli.clear
+    cli.ask("Choose which player (1 or 2) should start:\n", Integer) { |q| q.in = 1..2 }
   end
 
   def pick_players
-    display "Pick either a Human (1) or Computer (2) player."
+    print_pick_players_message
     {
       "First Player"  => "X",
       "Second Player" => "0",
@@ -56,80 +50,25 @@ class TicTacToe
     end
   end
 
+  def print_pick_players_message
+    cli.clear
+    cli.say "Pick either a Human (1) or Computer (2) player."
+  end
+
   def player_type(number:, symbol:)
     {
       1 => HumanPlayer,
       2 => ComputerPlayer,
-    }[number].new symbol: symbol, stdin: stdin, stdout: stdout
+    }[number].new symbol: symbol, cli: cli
   end
 
   private
 
-  def ask(*args, &blok)
-    highline.ask(*args, &blok)
-  end
-
   def pick_player_number(question)
-    ask("#{question}:\n", Integer) { |q| q.in = 1..2 }
+    cli.ask("#{question}:\n", Integer) { |q| q.in = 1..2 }
   end
 
   def continue_with_next_match_or_exit
-    exit unless highline.agree("Want to play another round?\n")
-  end
-
-  def highline
-    @highline ||= HighLine.new(stdin, stdout)
-  end
-
-  def display(msg)
-    reset_screen
-    writeln msg
-  end
-
-  def reset_screen
-    wipe_screen
-    writeln "Unbeatable Tic Tac Toe"
-    writeln "======================"
-    writeln ""
-  end
-
-  def wipe_screen
-    clear_screen && cursor_topleft
-  end
-
-  def cursor_topleft
-    write ANSI.cursor_topleft
-  end
-
-  def clear_screen
-    write ANSI.clear_screen
-  end
-
-  def write(msg)
-    stdout.write msg
-  end
-
-  def writeln(msg)
-    write "#{msg}\n"
-  end
-
-  # ANSI Table
-  # https://en.wikipedia.org/wiki/ANSI_escape_code
-  class ANSI
-    class << self
-      ESC = 27.chr
-
-      def escape(sequence)
-        ESC + "[" + sequence
-      end
-
-      def clear_screen
-        escape "2J"
-      end
-
-      def cursor_topleft
-        escape "1;1H"
-      end
-    end
+    exit unless cli.agree("Want to play another round?\n")
   end
 end

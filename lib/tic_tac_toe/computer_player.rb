@@ -3,10 +3,9 @@
 class TicTacToe
   # Represents game board
   class ComputerPlayer
-    def initialize(symbol:, stdin:, stdout:)
+    def initialize(symbol:, cli:)
       @symbol = symbol
-      @stdin  = stdin
-      @stdout = stdout
+      @cli    = cli
     end
   end
 end
