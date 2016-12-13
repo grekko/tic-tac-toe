@@ -6,11 +6,7 @@ class TicTacToe
     attr_accessor :fields
 
     def initialize
-      @fields = [
-        nil, nil, nil,
-        nil, nil, nil,
-        nil, nil, nil,
-      ]
+      @fields = 9.times.map { nil }
     end
 
     def solved?
