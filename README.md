@@ -38,3 +38,13 @@ Generate code coverage report or have a look at [Codeclimate](https://codeclimat
 ```
 open coverage/index.html
 ```
+
+# TODOs
+
+- [ ] Add always-winning computer algorithm
+- [ ] Reconsider current CLI <-> Game structure
+
+## Nice to haves
+
+- [ ] Decouple CLI from game logic for code reusability
+- [ ] Add simple web front end?
