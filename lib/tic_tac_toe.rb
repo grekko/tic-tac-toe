@@ -82,6 +82,6 @@ class TicTacToe
   end
 
   def continue_with_next_match_or_exit
-    exit unless cli.agree("Want to play another round?\n")
+    exit unless cli.agree("Want to play another round? (Y/N)\n")
   end
 end

@@ -98,5 +98,11 @@ describe "Acceptance test for Human vs. Human play" do
     # Expect game to be over
     output = process.clean_output
     expect(output).to include "Congrats! Player 1 (Human) won!"
+    expect(output).to include "Want to play another round? (Y/N)"
+
+    # Choose Yes
+    process.writeln "Y"
+    output = process.clean_output
+    expect(output).to include "Pick either a Human (1) or Computer (2) player"
   end
 end
