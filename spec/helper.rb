@@ -55,13 +55,16 @@ class CliParsedBoard
   BOARD_REGEXP = /(.+)\s---\+---\+---\n(.+)\s---\+---\+---\s(.+)/
 
   def initialize(string)
-    @string = string
+    @string = string.delete("\r")
   end
 
   def to_a
-    if match = @string.gsub("\r", "").match(BOARD_REGEXP)
-      match.captures.map { |line| line.split(?|).map(&:strip) }.flatten
-    end
+    return unless match
+    match.captures.map { |line| line.split("|").map(&:strip) }.flatten
+  end
+
+  def match
+    @match ||= @string.match(BOARD_REGEXP)
   end
 end
 

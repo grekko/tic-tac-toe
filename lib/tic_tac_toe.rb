@@ -7,6 +7,11 @@ require_relative "tic_tac_toe/computer_player"
 
 # TODO
 class TicTacToe
+  PLAYERS = {
+    "First Player"  => "X",
+    "Second Player" => "0",
+  }.freeze
+
   attr_reader :cli
 
   def initialize(stdin: $stdin, stdout: $stdout)
@@ -15,15 +20,23 @@ class TicTacToe
 
   def start
     loop do
-      match = Match.new picked_players_in_starting_order
-      loop do
-        player = match.next_player
-        player.make_move
-        if match.game_over?
-          cli.say "Congrats! #{player} won!"
-        end
-      end
+      match_loop new_match
       continue_with_next_match_or_exit
+    end
+  end
+
+  def new_match
+    Match.new picked_players_in_starting_order
+  end
+
+  def match_loop(match)
+    loop do
+      player = match.next_player
+      player.make_move
+      if match.game_over?
+        cli.say "Congrats! #{player} won!"
+        break
+      end
     end
   end
 
@@ -40,13 +53,10 @@ class TicTacToe
 
   def pick_players
     print_pick_players_message
-    {
-      "First Player"  => "X",
-      "Second Player" => "0",
-    }.each_with_index.map do |(player, symbol), index|
+    PLAYERS.each_with_index.map do |(player, symbol), index|
       player_type(
         type: pick_player_type("#{player} #{symbol}"),
-        number: index+1,
+        number: index + 1,
         symbol: symbol,
       )
     end
