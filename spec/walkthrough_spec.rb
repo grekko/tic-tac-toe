@@ -15,14 +15,16 @@ describe "Acceptance test for Human vs. Human play" do
   end
 
   it "provides the proper UI feedback" do
-    # Expect title
-    expect(process.clean_output).to include "Unbeatable Tic Tac Toe"
+    # Expect title and setup message
+    output = process.clean_output
+    expect(output).to include "Unbeatable Tic Tac Toe"
+    expect(output).to include "Pick either a Human (1) or Computer (2) player"
 
     # Provide a false answer and expect failure message
     process.writeln "3"
     expect(process.clean_output).to include "Your answer isn't within the expected range"
 
-    # Pick first Player being Human
+    # Pick first Player being X, Human
     process.writeln "1"
 
     # Expect prompt for setting the second player
@@ -38,7 +40,7 @@ describe "Acceptance test for Human vs. Human play" do
     # Expect board to be rendered
     output = process.clean_output
     board = CliParsedBoard.new(output)
-    expect(output).to include "Player 1 (Human), its your turn."
+    expect(output).to include "Player 1 (X, Human), its your turn."
     expect(board.to_a).to eq %w(
       1 2 3
       4 5 6
@@ -50,7 +52,7 @@ describe "Acceptance test for Human vs. Human play" do
     # Expect board to be updated
     output = process.clean_output
     board = CliParsedBoard.new(output)
-    expect(output).to include "Player 2 (Human), its your turn."
+    expect(output).to include "Player 2 (0, Human), its your turn."
     expect(board.to_a).to eq %w(
       1 2 3
       4 X 6
@@ -62,7 +64,7 @@ describe "Acceptance test for Human vs. Human play" do
     # Expect board to be updated
     output = process.clean_output
     board = CliParsedBoard.new(output)
-    expect(output).to include "Player 1 (Human), its your turn."
+    expect(output).to include "Player 1 (X, Human), its your turn."
     expect(board.to_a).to eq %w(
       0 2 3
       4 X 6
@@ -74,7 +76,7 @@ describe "Acceptance test for Human vs. Human play" do
     # Expect board to be updated
     output = process.clean_output
     board = CliParsedBoard.new(output)
-    expect(output).to include "Player 2 (Human), its your turn."
+    expect(output).to include "Player 2 (0, Human), its your turn."
     expect(board.to_a).to eq %w(
       0 2 3
       4 X 6
@@ -86,7 +88,7 @@ describe "Acceptance test for Human vs. Human play" do
     # Expect board to be updated
     output = process.clean_output
     board = CliParsedBoard.new(output)
-    expect(output).to include "Player 1 (Human), its your turn."
+    expect(output).to include "Player 1 (X, Human), its your turn."
     expect(board.to_a).to eq %w(
       0 2 3
       0 X 6
@@ -97,7 +99,7 @@ describe "Acceptance test for Human vs. Human play" do
 
     # Expect game to be over
     output = process.clean_output
-    expect(output).to include "Congrats! Player 1 (Human) won!"
+    expect(output).to include "Congrats! Player 1 (X, Human) won!"
     expect(output).to include "Want to play another round? (Y/N)"
 
     # Choose Yes

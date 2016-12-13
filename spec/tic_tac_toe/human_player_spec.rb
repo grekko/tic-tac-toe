@@ -21,7 +21,7 @@ RSpec.describe TicTacToe::HumanPlayer do
 
   describe "#to_s" do
     it "displays the Players name properly" do
-      expect(subject.to_s).to eq("Player 1 (Human)")
+      expect(subject.to_s).to eq("Player 1 (X, Human)")
     end
   end
 end

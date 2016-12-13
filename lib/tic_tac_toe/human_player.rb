@@ -20,7 +20,7 @@ class TicTacToe
     end
 
     def to_s
-      "Player #{number} (Human)"
+      "Player #{number} (#{symbol}, Human)"
     end
 
     private

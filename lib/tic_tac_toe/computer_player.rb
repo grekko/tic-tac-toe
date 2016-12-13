@@ -17,7 +17,8 @@ class TicTacToe
     end
 
     def to_s
-      "Player #{number} (Computer)"
+      "Player #{number} (#{symbol}, Computer)"
+    end
     end
   end
 end
