@@ -111,7 +111,7 @@ RSpec.describe TicTacToe::ComputerPlayer do
             ]
           end
 
-          it "picks any free corner" do
+          it "picks any available corner" do
             expect([1, 9]).to include(subject.pick_field)
           end
         end

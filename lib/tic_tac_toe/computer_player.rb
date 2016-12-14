@@ -20,16 +20,7 @@ class TicTacToe
     end
 
     def pick_field
-      case board.picked_fields.length
-      when 0
-        handle_empty_board
-      when 1
-        handle_second_move
-      when 2
-        handle_third_move
-      else
-        handle_fourth_move
-      end
+      [defending_pick, early_picks, winning_pick, any_pick].compact.first
     end
 
     def to_s
@@ -42,16 +33,20 @@ class TicTacToe
       Kernel.sleep 2
     end
 
-    def handle_fourth_move
-      [winning_pick, defending_pick, board.empty_fields.sample].compact.first
+    def defending_pick
+      detect_winning_pick symbol: opponent_symbol
+    end
+
+    def opponent_symbol
+      (board.symbols - [symbol]).first
     end
 
     def winning_pick
       detect_winning_pick symbol: symbol
     end
 
-    def opponent_symbol
-      (board.symbols - [symbol]).first
+    def any_pick
+      board.empty_fields.sample
     end
 
     def detect_winning_pick(symbol:)
@@ -60,20 +55,19 @@ class TicTacToe
       end
     end
 
-    def defending_pick
-      detect_winning_pick symbol: opponent_symbol
-    end
-
-    def handle_third_move
-      if at_least_one_edge_picked?
-        Board::CENTER_FIELD
-      else
-        any_free_corner_field
+    def early_picks
+      case board.picked_fields.length
+      when 0
+        handle_empty_board
+      when 1
+        handle_second_move
+      when 2
+        handle_third_move
       end
     end
 
     def handle_empty_board
-      Board::CORNER_FIELDS.sample
+      any_free_corner_field
     end
 
     def handle_second_move
@@ -83,6 +77,14 @@ class TicTacToe
         any_free_corner_field
       else
         corner_close_to_taken_edge
+      end
+    end
+
+    def handle_third_move
+      if at_least_one_edge_picked?
+        Board::CENTER_FIELD
+      else
+        any_free_corner_field
       end
     end
 
