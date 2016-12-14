@@ -12,11 +12,10 @@ RSpec.describe TicTacToe::ComputerPlayer do
   end
 
   describe "#pick_field" do
-    let(:minimax) { instance_double("Minimax", pick_field_with_highest_score: 1) }
-
-    it "delegates the pick to Minimax" do
-      expect(Minimax).to receive(:new).with(board).and_return(minimax)
-      expect(subject.pick_field).to eq(minimax.pick_field_with_highest_score)
+    context "with an empty board" do
+      it "picks a random corner" do
+        expect([1, 3, 7, 9]).to include(subject.pick_field)
+      end
     end
   end
 

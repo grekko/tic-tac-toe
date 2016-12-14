@@ -20,6 +20,9 @@ class TicTacToe
     end
 
     def pick_field
+      if board.empty?
+        [1, 3, 7, 9].sample
+      end
     end
 
     def to_s
