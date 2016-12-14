@@ -5,6 +5,26 @@ require "helper"
 RSpec.describe TicTacToe::Board do
   subject { described_class.new }
 
+  describe "#solved_for_symbol?" do
+    context "for a board with a winning X line" do
+      before do
+        subject.fields = %w(
+          X X X
+          4 5 0
+          0 8 0
+        )
+      end
+
+      it "returns true for X" do
+        expect(subject.solved_for_symbol?("X")).to eq true
+      end
+
+      it "returns false for 0" do
+        expect(subject.solved_for_symbol?("0")).to eq false
+      end
+    end
+  end
+
   describe "#solved?" do
     context "for a board with a winning line" do
       before do
@@ -121,7 +141,7 @@ RSpec.describe TicTacToe::Board do
     end
   end
 
-  describe "#my_fields" do
+  describe "#picked_fields_for_symbol" do
     context "for a partially filled board" do
       before do
         subject.fields = [
@@ -132,11 +152,11 @@ RSpec.describe TicTacToe::Board do
       end
 
       it "returns the correct fields for X" do
-        expect(subject.my_fields(symbol: "X")).to eq [1, 6, 8]
+        expect(subject.picked_fields_for_symbol("X")).to eq [1, 6, 8]
       end
 
       it "returns the correct fields for 0" do
-        expect(subject.my_fields(symbol: "0")).to eq [4, 9]
+        expect(subject.picked_fields_for_symbol("0")).to eq [4, 9]
       end
     end
   end
@@ -159,6 +179,29 @@ RSpec.describe TicTacToe::Board do
 
       it "returns just the available fields" do
         expect(subject.empty_fields).to eq [2, 3, 5, 7]
+      end
+    end
+  end
+
+  describe "#with_move" do
+    context "for a partially filled board" do
+      before do
+        subject.fields = [
+          "X", nil, nil,
+          "0", nil, "X",
+          nil, "X", "0"
+        ]
+      end
+
+      it "returns a copy of the board with the updated move" do
+        expected_fields = [
+          "X", "X", nil,
+          "0", nil, "X",
+          nil, "X", "0"
+        ]
+        new_board = subject.with_move(field: 2, symbol: "X")
+        expect(subject).to_not eq new_board
+        expect(new_board.fields).to eq(expected_fields)
       end
     end
   end

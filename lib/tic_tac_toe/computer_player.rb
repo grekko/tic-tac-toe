@@ -3,12 +3,6 @@
 class TicTacToe
   # Represents game board
   class ComputerPlayer
-    HORIZONTAL_WINNING_ROWS = [[1, 2, 3], [4, 5, 6], [7, 8, 9]].freeze
-    VERTICAL_WINNING_ROWS   = [[1, 4, 7], [2, 5, 8], [3, 6, 9]].freeze
-    DIAGONAL_WINNING_ROWS   = [[1, 5, 9], [3, 5, 7]].freeze
-    WINNING_ROWS = HORIZONTAL_WINNING_ROWS +
-                   VERTICAL_WINNING_ROWS +
-                   DIAGONAL_WINNING_ROWS
     attr_accessor :board
     attr_reader :number, :symbol, :cli
 
@@ -50,28 +44,21 @@ class TicTacToe
     end
 
     def winning_pick
-      detect_winning_pick my_fields
+      detect_winning_pick symbol: symbol
     end
 
-    def my_fields
-      board.my_fields symbol: symbol
+    def opponent_symbol
+      (board.symbols - [symbol]).first
     end
 
-    def opponent_fields
-      board.picked_fields - my_fields
-    end
-
-    def detect_winning_pick(fields)
+    def detect_winning_pick(symbol:)
       board.empty_fields.detect do |field|
-        possible_row = fields + [field]
-        WINNING_ROWS.any? do |winning_row|
-          (winning_row & possible_row).length == 3
-        end
+        board.with_move(field: field, symbol: symbol).solved?
       end
     end
 
     def defending_pick
-      detect_winning_pick opponent_fields
+      detect_winning_pick symbol: opponent_symbol
     end
 
     def handle_third_move

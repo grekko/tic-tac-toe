@@ -9,19 +9,28 @@ class TicTacToe
     CENTER_FIELD  = 5
     EDGE_FIELDS   = [2, 4, 6, 8].freeze
 
+    HORIZONTAL_WINNING_SETS = [[1, 2, 3], [4, 5, 6], [7, 8, 9]].freeze
+    VERTICAL_WINNING_SETS   = [[1, 4, 7], [2, 5, 8], [3, 6, 9]].freeze
+    DIAGONAL_WINNING_SETS   = [[1, 5, 9], [3, 5, 7]].freeze
+    WINNING_SETS = HORIZONTAL_WINNING_SETS +
+                   VERTICAL_WINNING_SETS +
+                   DIAGONAL_WINNING_SETS
+
     def initialize
       @fields = Array.new(9) { nil }
     end
 
-    def solved?
-      symbols.any? do |symbol|
-        winning_lines.any? do |field_ids|
-          field_ids.all? { |id| @fields[id - 1] == symbol }
-        end
+    def solved_for_symbol?(symbol)
+      WINNING_SETS.any? do |field_ids|
+        field_ids.all? { |id| @fields[id - 1] == symbol }
       end
     end
 
-    def my_fields(symbol:)
+    def solved?
+      symbols.any? { |symbol| solved_for_symbol?(symbol) }
+    end
+
+    def picked_fields_for_symbol(symbol)
       fields.each_with_index.map { |f, i| [f, i + 1] }.select { |f, _| f == symbol }.map(&:last)
     end
 
@@ -35,6 +44,13 @@ class TicTacToe
 
     def full?
       !empty_fields.any?
+    end
+
+    def with_move(field:, symbol:)
+      self.class.new.tap do |board|
+        board.fields = fields.dup
+        board.update field: field, symbol: symbol
+      end
     end
 
     def update(field:, symbol:)
@@ -53,24 +69,11 @@ class TicTacToe
         " #{field(6)} | #{field(7)} | #{field(8)} \n"
     end
 
-    private
-
-    def winning_lines
-      [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9],
-        [1, 4, 7],
-        [2, 5, 8],
-        [3, 6, 9],
-        [1, 5, 9],
-        [3, 5, 7],
-      ]
-    end
-
     def symbols
       fields.uniq.compact
     end
+
+    private
 
     def field(id)
       fields[id] || id + 1
