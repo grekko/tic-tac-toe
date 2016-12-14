@@ -15,7 +15,7 @@ RSpec.describe TicTacToe::ComputerPlayer do
     it "communicates to the user, waits before responding and makes their move" do
       expect(cli).to receive(:clear)
       expect(cli).to receive(:print)
-      expect(subject).to receive(:take_some_time_to_think_about_the_next_move)
+      expect(Kernel).to receive(:sleep).with(2)
       expect(subject).to receive(:pick_field).and_return(5)
       expect(board).to receive(:update).with(field: 5, symbol: subject.symbol)
       subject.make_move

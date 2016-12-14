@@ -39,7 +39,7 @@ class TicTacToe
     private
 
     def take_some_time_to_think_about_the_next_move
-      sleep 2
+      Kernel.sleep 2
     end
 
     def handle_fourth_move
