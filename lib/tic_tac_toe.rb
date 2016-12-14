@@ -26,7 +26,7 @@ class TicTacToe
   end
 
   def new_match
-    Match.new picked_players_in_starting_order
+    Match.new players: picked_players_in_starting_order
   end
 
   def match_loop(match)

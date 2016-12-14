@@ -15,7 +15,7 @@ RSpec.describe TicTacToe::ComputerPlayer do
     let(:minimax) { instance_double("Minimax", pick_field_with_highest_score: 1) }
 
     it "delegates the pick to Minimax" do
-      expect(Minimax).to receive(:new).with(board).and_return(minimax)
+      expect(Minimax).to receive(:new).with(board: board).and_return(minimax)
       expect(subject.pick_field).to eq(minimax.pick_field_with_highest_score)
     end
   end

@@ -7,10 +7,9 @@ class TicTacToe
   class Match
     attr_accessor :players, :board
 
-    def initialize(players)
+    def initialize(players:)
       @players = players
-      @board = Board.new
-      @players.each { |player| player.board = @board }
+      @board = Board.new(players: players)
     end
 
     def next_player

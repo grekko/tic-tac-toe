@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "move"
+
 class TicTacToe
   # Represents game board
   class HumanPlayer
@@ -15,8 +17,7 @@ class TicTacToe
     def make_move
       cli.clear
       cli.print turn_message
-      field = cli.ask(pick_message, Integer) { |q| q.in = board.empty_fields }
-      board.update field: field, symbol: symbol
+      board.apply_move next_move
     end
 
     def to_s
@@ -24,6 +25,11 @@ class TicTacToe
     end
 
     private
+
+    def next_move
+      field = cli.ask(pick_message, Integer) { |q| q.in = board.empty_fields }
+      Move.new(index: field.to_i - 1, symbol: symbol)
+    end
 
     def turn_message
       "#{self}, its your turn.\n\nThe board:\n===========\n#{board}"

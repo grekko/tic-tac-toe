@@ -20,7 +20,7 @@ class TicTacToe
     end
 
     def pick_field
-      Minimax.new(board).pick_field_with_highest_score
+      Minimax.new(board: board).pick_field_with_highest_score
     end
 
     def to_s

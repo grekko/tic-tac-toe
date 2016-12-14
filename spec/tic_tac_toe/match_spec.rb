@@ -7,7 +7,7 @@ RSpec.describe TicTacToe::Match do
     attr_accessor :board
   end
 
-  subject { described_class.new players }
+  subject { described_class.new(players: players) }
   let(:players) { [first, second] }
   let(:first)   { FakePlayer.new }
   let(:second)  { FakePlayer.new }
@@ -15,10 +15,9 @@ RSpec.describe TicTacToe::Match do
   describe "#initialize" do
     let(:board) { subject.board }
 
-    it "gives each player access to the game board" do
-      expect(board).not_to be_nil
-      expect(first.board).to eq(board)
-      expect(second.board).to eq(board)
+    it "gives the board access to the players" do
+      expect(board.players).to include first
+      expect(board.players).to include second
     end
   end
 

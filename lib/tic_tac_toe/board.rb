@@ -3,10 +3,25 @@
 class TicTacToe
   # Represents game board
   class Board
-    attr_accessor :fields
+    attr_accessor :fields, :players
 
-    def initialize
+    def initialize(players: [])
+      @players = players.each do |player|
+        player.board = self
+      end
       @fields = Array.new(9) { nil }
+    end
+
+    def empty?
+      empty_fields.length == fields.length
+    end
+
+    # TODO: Instead take the field and create a move based on the `current_player`?
+    def after_move(move)
+      self.class.new(players: players).tap do |board|
+        board.fields = fields
+        board.apply_move move
+      end
     end
 
     def solved?
@@ -21,8 +36,8 @@ class TicTacToe
       !empty_fields.any?
     end
 
-    def update(field:, symbol:)
-      fields[field - 1] = symbol
+    def apply_move(move)
+      fields[move.index] = move.symbol
     end
 
     def empty_fields
@@ -52,7 +67,7 @@ class TicTacToe
     end
 
     def symbols
-      fields.uniq.compact
+      players.map(&:symbol)
     end
 
     def field(id)

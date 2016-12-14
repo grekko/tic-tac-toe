@@ -3,7 +3,37 @@
 require "helper"
 
 RSpec.describe TicTacToe::Board do
-  subject { described_class.new }
+  subject { described_class.new(players: players) }
+  let(:players) { [first, second] }
+  let(:first)   { TicTacToe::HumanPlayer.new(number: 1, symbol: "X", cli: fake_cli) }
+  let(:second)  { TicTacToe::HumanPlayer.new(number: 2, symbol: "0", cli: fake_cli) }
+  let(:fake_cli) { instance_double("Cli") }
+
+  describe "#initialize" do
+    it "gives all given players access to the board" do
+      expect(subject).to_not be_nil
+      expect(first.board).to eq(subject)
+      expect(second.board).to eq(subject)
+    end
+  end
+
+  describe "#after_move(move)" do
+    context "for a partial filled board" do
+      before do
+        subject.fields = [
+          "X", nil, nil,
+          "0", nil, "X",
+          nil, "X", "0"
+        ]
+      end
+
+      it "returns a new board with the move applied" do
+        move = instance_double("Move", index: 1, symbol: "0")
+        next_board = subject.after_move move
+        expect(next_board.empty_fields).to eq([3, 5, 7])
+      end
+    end
+  end
 
   describe "#solved?" do
     context "for a board with a winning line" do
@@ -37,6 +67,28 @@ RSpec.describe TicTacToe::Board do
     context "for a new board" do
       it "returns false" do
         expect(subject).to_not be_solved
+      end
+    end
+  end
+
+  describe "#empty?" do
+    context "for an empty board" do
+      it "returns true" do
+        expect(subject).to be_empty
+      end
+    end
+
+    context "for a partial filled board" do
+      before do
+        subject.fields = [
+          "X", nil, nil,
+          "0", nil, "X",
+          nil, "X", "0"
+        ]
+      end
+
+      it "returns false" do
+        expect(subject).to_not be_empty
       end
     end
   end
@@ -99,10 +151,10 @@ RSpec.describe TicTacToe::Board do
     end
   end
 
-  describe "#update" do
+  describe "#apply_move" do
     it "updates fields with the given symbol" do
       expect(subject.fields[0]).to be_nil
-      subject.update field: 1, symbol: "π"
+      subject.apply_move TicTacToe::Move.new(index: 0, symbol: "π")
       expect(subject.fields[0]).to eq("π")
     end
   end
