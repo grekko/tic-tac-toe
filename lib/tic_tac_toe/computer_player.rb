@@ -3,6 +3,12 @@
 class TicTacToe
   # Represents game board
   class ComputerPlayer
+    HORIZONTAL_WINNING_ROWS = [[1, 2, 3], [4, 5, 6], [7, 8, 9]].freeze
+    VERTICAL_WINNING_ROWS   = [[1, 4, 7], [2, 5, 8], [3, 6, 9]].freeze
+    DIAGONAL_WINNING_ROWS   = [[1, 5, 9], [3, 5, 7]].freeze
+    WINNING_ROWS = HORIZONTAL_WINNING_ROWS +
+                   VERTICAL_WINNING_ROWS +
+                   DIAGONAL_WINNING_ROWS
     attr_accessor :board
     attr_reader :number, :symbol, :cli
 
@@ -15,8 +21,9 @@ class TicTacToe
     def make_move
       cli.clear
       cli.print turn_message
+      field = pick_field
       sleep 2
-      board.update field: pick_field, symbol: symbol
+      board.update field: field, symbol: symbol
     end
 
     def pick_field
@@ -25,6 +32,10 @@ class TicTacToe
         handle_empty_board
       when 1
         handle_second_move
+      when 2
+        handle_third_move
+      else
+        handle_fourth_move
       end
     end
 
@@ -34,6 +45,43 @@ class TicTacToe
 
     private
 
+    def handle_fourth_move
+      [winning_pick, defending_pick, board.empty_fields.sample].compact.first
+    end
+
+    def winning_pick
+      detect_winning_pick my_fields
+    end
+
+    def my_fields
+      board.my_fields symbol: symbol
+    end
+
+    def opponent_fields
+      board.picked_fields - my_fields
+    end
+
+    def detect_winning_pick(fields)
+      board.empty_fields.detect do |field|
+        possible_row = fields + [field]
+        WINNING_ROWS.any? do |winning_row|
+          (winning_row & possible_row).length == 3
+        end
+      end
+    end
+
+    def defending_pick
+      detect_winning_pick opponent_fields
+    end
+
+    def handle_third_move
+      if at_least_one_edge_picked?
+        Board::CENTER_FIELD
+      else
+        any_free_corner_field
+      end
+    end
+
     def handle_empty_board
       Board::CORNER_FIELDS.sample
     end
@@ -42,10 +90,14 @@ class TicTacToe
       if at_least_one_corner_picked?
         Board::CENTER_FIELD
       elsif center_picked?
-        Board::CORNER_FIELDS.sample
+        any_free_corner_field
       else
         corner_close_to_taken_edge
       end
+    end
+
+    def any_free_corner_field
+      (Board::CORNER_FIELDS & board.empty_fields).sample
     end
 
     def corner_close_to_taken_edge
@@ -54,6 +106,10 @@ class TicTacToe
 
     def center_picked?
       !board.empty_fields.include?(Board::CENTER_FIELD)
+    end
+
+    def at_least_one_edge_picked?
+      (board.empty_fields & Board::EDGE_FIELDS).length < Board::EDGE_FIELDS.length
     end
 
     def at_least_one_corner_picked?

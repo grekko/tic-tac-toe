@@ -121,6 +121,26 @@ RSpec.describe TicTacToe::Board do
     end
   end
 
+  describe "#my_fields" do
+    context "for a partially filled board" do
+      before do
+        subject.fields = [
+          "X", nil, nil,
+          "0", nil, "X",
+          nil, "X", "0"
+        ]
+      end
+
+      it "returns the correct fields for X" do
+        expect(subject.my_fields(symbol: "X")).to eq [1, 6, 8]
+      end
+
+      it "returns the correct fields for 0" do
+        expect(subject.my_fields(symbol: "0")).to eq [4, 9]
+      end
+    end
+  end
+
   describe "#empty_fields" do
     context "for a new board" do
       it "returns all fields" do

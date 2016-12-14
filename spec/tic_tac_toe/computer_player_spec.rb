@@ -15,9 +15,95 @@ RSpec.describe TicTacToe::ComputerPlayer do
     let(:corner_fields) { TicTacToe::Board::CORNER_FIELDS }
     let(:edge_fields)   { TicTacToe::Board::EDGE_FIELDS }
 
+    context "opponent offers chance to win" do
+      before do
+        board.fields = [
+          nil, nil, "π",
+          "X", "π", nil,
+          nil, nil, "X",
+        ]
+      end
+
+      it "picks the winning corner" do
+        expect(subject.pick_field).to eq(7)
+      end
+    end
+
+    context "opponent is about to win" do
+      before do
+        board.fields = [
+          nil, nil, "π",
+          "X", "X", nil,
+          nil, nil, nil,
+        ]
+      end
+
+      it "defends the game" do
+        expect(subject.pick_field).to eq(6)
+      end
+    end
+
+    context "no obvious good move" do
+      before do
+        board.fields = [
+          nil, nil, "π",
+          "π", "X", "X",
+          "X", "π", "X",
+        ]
+      end
+
+      it "picks any available field" do
+        expect([1, 2]).to include(subject.pick_field)
+      end
+    end
+
     context "with an empty board" do
       it "picks a random corner" do
         expect(corner_fields).to include(subject.pick_field)
+      end
+
+      context "opponent picked" do
+        context "an edge" do
+          before do
+            board.fields = [
+              nil, nil, "π",
+              "X", nil, nil,
+              nil, nil, nil,
+            ]
+          end
+
+          it "picks the center" do
+            expect(subject.pick_field).to eq(TicTacToe::Board::CENTER_FIELD)
+          end
+        end
+
+        context "the center" do
+          before do
+            board.fields = [
+              nil, nil, "π",
+              nil, "X", nil,
+              nil, nil, nil,
+            ]
+          end
+
+          it "picks any corner" do
+            expect([1, 7, 9]).to include(subject.pick_field)
+          end
+        end
+
+        context "any corner" do
+          before do
+            board.fields = [
+              nil, nil, "π",
+              nil, nil, nil,
+              "X", nil, nil,
+            ]
+          end
+
+          it "picks any free corner" do
+            expect([1, 9]).to include(subject.pick_field)
+          end
+        end
       end
     end
 

@@ -21,6 +21,10 @@ class TicTacToe
       end
     end
 
+    def my_fields(symbol:)
+      fields.each_with_index.map { |f, i| [f, i + 1] }.select { |f, _| f == symbol }.map(&:last)
+    end
+
     def empty?
       empty_fields.length == fields.length
     end
@@ -54,12 +58,13 @@ class TicTacToe
     def winning_lines
       [
         [1, 2, 3],
-        [1, 4, 7],
-        [1, 5, 9],
-        [2, 5, 8],
         [4, 5, 6],
-        [9, 6, 3],
-        [9, 8, 7],
+        [7, 8, 9],
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+        [1, 5, 9],
+        [3, 5, 7],
       ]
     end
 
