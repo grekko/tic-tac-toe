@@ -17,6 +17,10 @@ class TicTacToe
       end
     end
 
+    def empty?
+      empty_fields.length == fields.length
+    end
+
     def full?
       !empty_fields.any?
     end
