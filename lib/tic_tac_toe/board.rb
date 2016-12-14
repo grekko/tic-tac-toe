@@ -5,6 +5,10 @@ class TicTacToe
   class Board
     attr_accessor :fields
 
+    CORNER_FIELDS = [1, 3, 7, 9]
+    CENTER_FIELD  = 5
+    EDGE_FIELDS   = [2, 4, 6, 8]
+
     def initialize
       @fields = Array.new(9) { nil }
     end
@@ -19,6 +23,10 @@ class TicTacToe
 
     def empty?
       empty_fields.length == fields.length
+    end
+
+    def picked_fields
+      (1..9).to_a - empty_fields
     end
 
     def full?

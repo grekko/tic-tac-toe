@@ -99,6 +99,28 @@ RSpec.describe TicTacToe::Board do
     end
   end
 
+  describe "#picked_fields" do
+    context "for a new board" do
+      it "returns no fields" do
+        expect(subject.picked_fields).to eq([])
+      end
+    end
+
+    context "for a partially filled board" do
+      before do
+        subject.fields = [
+          "X", nil, nil,
+          "0", nil, "X",
+          nil, "X", "0"
+        ]
+      end
+
+      it "returns the picked fields" do
+        expect(subject.picked_fields).to eq [1, 4, 6, 8, 9]
+      end
+    end
+  end
+
   describe "#empty_fields" do
     context "for a new board" do
       it "returns all fields" do
