@@ -15,9 +15,8 @@ class TicTacToe
     def make_move
       cli.clear
       cli.print turn_message
-      field = pick_field
-      sleep 2
-      board.update field: field, symbol: symbol
+      take_some_time_to_think_about_the_next_move
+      board.update field: pick_field, symbol: symbol
     end
 
     def pick_field
@@ -38,6 +37,10 @@ class TicTacToe
     end
 
     private
+
+    def take_some_time_to_think_about_the_next_move
+      sleep 2
+    end
 
     def handle_fourth_move
       [winning_pick, defending_pick, board.empty_fields.sample].compact.first

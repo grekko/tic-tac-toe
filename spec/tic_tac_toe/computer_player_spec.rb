@@ -11,6 +11,17 @@ RSpec.describe TicTacToe::ComputerPlayer do
     subject.board = board
   end
 
+  describe "#make_move" do
+    it "communicates to the user, waits before responding and makes their move" do
+      expect(cli).to receive(:clear)
+      expect(cli).to receive(:print)
+      expect(subject).to receive(:take_some_time_to_think_about_the_next_move)
+      expect(subject).to receive(:pick_field).and_return(5)
+      expect(board).to receive(:update).with(field: 5, symbol: subject.symbol)
+      subject.make_move
+    end
+  end
+
   describe "#pick_field" do
     let(:corner_fields) { TicTacToe::Board::CORNER_FIELDS }
     let(:edge_fields)   { TicTacToe::Board::EDGE_FIELDS }
