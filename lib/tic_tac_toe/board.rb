@@ -5,9 +5,9 @@ class TicTacToe
   class Board
     attr_accessor :fields
 
-    CORNER_FIELDS = [1, 3, 7, 9]
+    CORNER_FIELDS = [1, 3, 7, 9].freeze
     CENTER_FIELD  = 5
-    EDGE_FIELDS   = [2, 4, 6, 8]
+    EDGE_FIELDS   = [2, 4, 6, 8].freeze
 
     def initialize
       @fields = Array.new(9) { nil }

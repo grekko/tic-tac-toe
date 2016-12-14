@@ -20,8 +20,11 @@ class TicTacToe
     end
 
     def pick_field
-      if board.empty?
-        [1, 3, 7, 9].sample
+      case board.picked_fields.length
+      when 0
+        handle_empty_board
+      when 1
+        handle_second_move
       end
     end
 
@@ -30,6 +33,32 @@ class TicTacToe
     end
 
     private
+
+    def handle_empty_board
+      Board::CORNER_FIELDS.sample
+    end
+
+    def handle_second_move
+      if at_least_one_corner_picked?
+        Board::CENTER_FIELD
+      elsif center_picked?
+        Board::CORNER_FIELDS.sample
+      else
+        corner_close_to_taken_edge
+      end
+    end
+
+    def corner_close_to_taken_edge
+      [1, -1].sample + board.picked_fields.first
+    end
+
+    def center_picked?
+      !board.empty_fields.include?(Board::CENTER_FIELD)
+    end
+
+    def at_least_one_corner_picked?
+      (board.empty_fields & Board::CORNER_FIELDS).length < Board::CORNER_FIELDS.length
+    end
 
     def turn_message
       "#{self}, its your turn.\n\nThe board:\n===========\n#{board}"
