@@ -22,7 +22,7 @@ class TicTacToe
 
     def solved_for_symbol?(symbol)
       WINNING_SETS.any? do |field_ids|
-        field_ids.all? { |id| @fields[id - 1] == symbol }
+        field_ids.all? { |id| fields[id - 1] == symbol }
       end
     end
 
