@@ -19,7 +19,7 @@ For a more scientific approach check out the article ["Tic Tac Toe: Understandin
 
 ## Usage
 
-You should have any latest ruby version installed. To be sure you can check the listed version in the provided [.travis.yml](/blob/master/.travis.yml).
+You should have any latest ruby version installed. To be sure you can check the listed version in the provided [/.travis.yml](/.travis.yml).
 
 ```
 git clone https://github.com/grekko/tic-tac-toe.git
@@ -31,7 +31,7 @@ bundle install
 
 ## Development
 
-Tests are written with [rspec](https://github.com/rspec/rspec) ([/spec](/tree/master/spec)-Directory). Run them all with:
+Tests are written with [rspec](https://github.com/rspec/rspec) ([/spec](/spec)-Directory). Run them all with:
 
 ```
 rake
