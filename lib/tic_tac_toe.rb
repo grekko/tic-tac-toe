@@ -34,7 +34,7 @@ class TicTacToe
       player = match.next_player
       display "#{player}, its your turn.\n\nThe board:\n===========\n#{match.board}"
       match.ask_player_for_move_and_apply player
-      display("Congrats! #{player} won!") && break if match.game_won?
+      display("Congrats! #{player} won!\n\n#{match.board}") && break if match.game_won?
       display("Nobody wins!") && break if match.board_full?
     end
   end

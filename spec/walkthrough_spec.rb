@@ -97,8 +97,14 @@ describe "Acceptance test for Human vs. Human play" do
     expect(output).to include "Pick an empty field (2, 3, 6, 7, 9):"
     process.writeln "2"
 
-    # Expect game to be over
+    # Expect game to be over and final board being displayed
     output = process.clean_output
+    board = CliParsedBoard.new(output)
+    expect(board.to_a).to eq %w(
+      0 X 3
+      0 X 6
+      7 X 9
+    )
     expect(output).to include "Congrats! Player 1 (X, Human) won!"
     expect(output).to include "Want to play another round? (Y/N)"
 
