@@ -18,7 +18,7 @@ Ruby implementation of an unbeatable tic-tac-toe program.
 
 ## Usage
 
-You should have any latest ruby version installed. To be sure you can check the listed version in the provided [.travis.yml](/tree/master/.travis.yml).
+You should have any latest ruby version installed. To be sure you can check the listed version in the provided [.travis.yml](/blob/master/.travis.yml).
 
 ```
 bundle install
