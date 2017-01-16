@@ -26,7 +26,7 @@ class TicTacToe
 
     def fields=(symbols)
       symbols.each_with_index do |symbol, position|
-        fields[position+1] = symbol
+        fields[position + 1] = symbol
       end
     end
 
@@ -41,7 +41,7 @@ class TicTacToe
     end
 
     def picked_fields
-      fields.select { |position, symbol| !symbol.nil? }.keys
+      fields.select { |_, symbol| !symbol.nil? }.keys
     end
 
     def full?
@@ -60,7 +60,7 @@ class TicTacToe
     end
 
     def empty_fields
-      fields.select { |position, symbol| symbol.nil? }.keys
+      fields.select { |_, symbol| symbol.nil? }.keys
     end
 
     def to_s
