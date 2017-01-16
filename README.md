@@ -18,7 +18,7 @@ Ruby implementation of an unbeatable tic-tac-toe program.
 
 ## Usage
 
-You should have ruby 2.3.1 installed.
+You should have any latest ruby version installed. To be sure you can check the listed version in the provided [.travis.yml](/tree/master/.travis.yml).
 
 ```
 bundle install
@@ -39,12 +39,7 @@ Generate code coverage report or have a look at [Codeclimate](https://codeclimat
 open coverage/index.html
 ```
 
-# TODOs
+# IDEAS
 
-- [ ] Add always-winning computer algorithm
-- [ ] Reconsider current CLI <-> Game structure
+- [ ] Reconsider coupling between CLI <-> Game/Match
 
-## Nice to haves
-
-- [ ] Decouple CLI from game logic for code reusability
-- [ ] Add simple web front end?
