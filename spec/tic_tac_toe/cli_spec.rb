@@ -36,13 +36,6 @@ RSpec.describe TicTacToe::Cli do
     end
   end
 
-  describe "#print" do
-    it "delegates to #say" do
-      expect(subject).to receive(:say).with(:any_message)
-      subject.print :any_message
-    end
-  end
-
   describe "#clear" do
     it "writes the proper ANSI code to stdout for clearing the TTY and resetting the cursor" do
       subject.clear
