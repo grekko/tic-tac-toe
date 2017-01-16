@@ -30,14 +30,6 @@ class TicTacToe
       symbols.any? { |symbol| solved_for_symbol?(symbol) }
     end
 
-    def picked_fields_for_symbol(symbol)
-      fields.each_with_index.map { |f, i| [f, i + 1] }.select { |f, _| f == symbol }.map(&:last)
-    end
-
-    def empty?
-      empty_fields.length == fields.length
-    end
-
     def picked_fields
       (1..9).to_a - empty_fields
     end
