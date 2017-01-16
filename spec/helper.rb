@@ -23,6 +23,22 @@ class SpawnedProcess
     @stdin.sync  = true
   end
 
+  def puts(string)
+    writeln string
+    clean_stdout
+  end
+
+  def clean_stdout
+    output_without_ansi_codes
+  end
+
+  def close
+    [stdout, stdin].each(&:close)
+    Process.kill "TERM", pid
+  end
+
+  private
+
   def output
     Timeout.timeout(0.5) do
       stdout.gets.tap do |string_or_nil|
@@ -37,17 +53,8 @@ class SpawnedProcess
     output.gsub ANSI_REGEXP, ""
   end
 
-  def clean_output
-    output_without_ansi_codes
-  end
-
-  def writeln(msg)
-    stdin.write "#{msg}\n"
-  end
-
-  def close
-    [stdout, stdin].each(&:close)
-    Process.kill "TERM", pid
+  def writeln(string)
+    stdin.write "#{string}\n"
   end
 end
 
