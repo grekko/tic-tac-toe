@@ -21,7 +21,7 @@ class TicTacToe
   def start
     loop do
       match_loop new_match
-      continue_with_next_match_or_exit
+      exit_unless_user_wants_to_continue
     end
   end
 
@@ -81,7 +81,7 @@ class TicTacToe
     }[cli.ask("#{question}:\n", Integer) { |q| q.in = 1..2 }]
   end
 
-  def continue_with_next_match_or_exit
+  def exit_unless_user_wants_to_continue
     exit unless cli.agree("Want to play another round? (Y/N)\n")
   end
 end
