@@ -3,16 +3,17 @@
 [![Build Status](https://travis-ci.org/grekko/tic-tac-toe.svg?branch=master)](https://travis-ci.org/grekko/tic-tac-toe)
 [![Test Coverage](https://codeclimate.com/github/grekko/tic-tac-toe/badges/coverage.svg)](https://codeclimate.com/github/grekko/tic-tac-toe/coverage)
 
-Ruby implementation of an unbeatable tic-tac-toe program.
+A naive or *creative* ruby implementation of an unbeatable tic-tac-toe program.
+For a more scientific approach check out the article ["Tic Tac Toe: Understanding The Minimax Algorithm"](http://neverstopbuilding.com/minimax).
 
 
-## Feature requirements
+## Design goals
 
-* The program allows three game modes:
+* The program should allow three game modes:
   * User vs. Computer
   * User vs. User
   * Computer vs. Computer
-* The computer should never lose
+* The computer player should never lose
 * The user can choose which player goes first
 
 
@@ -21,8 +22,10 @@ Ruby implementation of an unbeatable tic-tac-toe program.
 You should have any latest ruby version installed. To be sure you can check the listed version in the provided [.travis.yml](/blob/master/.travis.yml).
 
 ```
+git clone https://github.com/grekko/tic-tac-toe.git
+cd tic-tac-toe
 bundle install
-ruby tictactoe.rb
+./bin/tictactoe
 ```
 
 
