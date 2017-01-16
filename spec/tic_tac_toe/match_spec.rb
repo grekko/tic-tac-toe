@@ -22,6 +22,16 @@ RSpec.describe TicTacToe::Match do
     end
   end
 
+  describe "#ask_player_for_move_and_apply(player)" do
+    let(:board) { subject.board }
+    let(:player) { double("Player", next_move: 3, symbol: "π") }
+
+    it "applies the players #next_move" do
+      expect(board).to receive(:update).with(field: 3, symbol: "π")
+      subject.ask_player_for_move_and_apply(player)
+    end
+  end
+
   describe "#next_player" do
     it "returns the first player" do
       expect(subject.next_player).to eq(first)

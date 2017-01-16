@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TicTacToe
-  # Represents game board
+  # Handles interaction w/ human player via CLI
   class HumanPlayer
     attr_accessor :board
     attr_reader :number, :symbol, :cli
@@ -12,11 +12,8 @@ class TicTacToe
       @cli    = cli
     end
 
-    def make_move
-      cli.clear
-      cli.print turn_message
-      field = cli.ask(pick_message, Integer) { |q| q.in = board.empty_fields }
-      board.update field: field, symbol: symbol
+    def next_move
+      cli.ask(pick_message, Integer) { |q| q.in = board.empty_fields }.to_i
     end
 
     def to_s
@@ -24,10 +21,6 @@ class TicTacToe
     end
 
     private
-
-    def turn_message
-      "#{self}, its your turn.\n\nThe board:\n===========\n#{board}"
-    end
 
     def pick_message
       "Pick an empty field (#{board.empty_fields.join(', ')}):\n"

@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class TicTacToe
-  # Represents game board
+  # My naive first attempt to implement an unbeatable computer player.
+  # Partially based on: https://www.quora.com/Is-there-a-way-to-never-lose-at-Tic-Tac-Toe
+  #
+  # I discovered a more robust and deterministic approach using the Minimax-Algorithm
+  # which is described here: http://neverstopbuilding.com/minimax although I
+  # decided to stick w/ my more "creative" solution.
   class ComputerPlayer
     attr_accessor :board
     attr_reader :number, :symbol, :cli
@@ -12,11 +17,9 @@ class TicTacToe
       @cli    = cli
     end
 
-    def make_move
-      cli.clear
-      cli.print turn_message
+    def next_move
       take_some_time_to_think_about_the_next_move
-      board.update field: pick_field, symbol: symbol
+      pick_field
     end
 
     def pick_field
@@ -106,10 +109,6 @@ class TicTacToe
 
     def at_least_one_corner_picked?
       (board.empty_fields & Board::CORNER_FIELDS).length < Board::CORNER_FIELDS.length
-    end
-
-    def turn_message
-      "#{self}, its your turn.\n\nThe board:\n===========\n#{board}"
     end
   end
 end

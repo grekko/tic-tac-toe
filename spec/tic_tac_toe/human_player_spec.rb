@@ -11,11 +11,10 @@ RSpec.describe TicTacToe::HumanPlayer do
     subject.board = board
   end
 
-  describe "#make_move" do
+  describe "#next_move" do
     it "asks the human player via cli for the next move" do
       expect(cli).to receive(:ask).and_return("1")
-      expect(board).to receive(:update).with(field: "1", symbol: subject.symbol)
-      subject.make_move
+      expect(subject.next_move).to eq(1)
     end
   end
 

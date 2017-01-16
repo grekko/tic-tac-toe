@@ -13,6 +13,10 @@ class TicTacToe
       @players.each { |player| player.board = @board }
     end
 
+    def ask_player_for_move_and_apply(player)
+      board.update field: player.next_move, symbol: player.symbol
+    end
+
     def next_player
       players.rotate!.last
     end
