@@ -8,11 +8,11 @@ RSpec.describe TicTacToe::Board do
   describe "#solved_for_symbol?" do
     context "for a board with a winning X line" do
       before do
-        subject.fields = %w(
-          X X X
-          4 5 0
-          0 8 0
-        )
+        subject.fields = [
+          "X", "X", "X",
+          nil, nil, nil,
+          nil, nil, nil,
+        ]
       end
 
       it "returns true for X" do
@@ -28,11 +28,11 @@ RSpec.describe TicTacToe::Board do
   describe "#solved?" do
     context "for a board with a winning line" do
       before do
-        subject.fields = %w(
-          X X X
-          4 5 0
-          0 8 0
-        )
+        subject.fields = [
+          "X", "X", "X",
+          nil, nil, nil,
+          nil, nil, nil,
+        ]
       end
 
       it "returns true" do
@@ -42,11 +42,11 @@ RSpec.describe TicTacToe::Board do
 
     context "for a board with another winning line" do
       before do
-        subject.fields = %w(
-          0 2 X
-          4 0 6
-          X X 0
-        )
+        subject.fields = [
+          "0", nil, "X",
+          nil, "0", nil,
+          "X", "X", "0",
+        ]
       end
 
       it "returns true" do
@@ -84,11 +84,11 @@ RSpec.describe TicTacToe::Board do
 
     context "for a full board" do
       before do
-        subject.fields = %w(
-          X 0 X
-          0 0 X
-          X X 0
-        )
+        subject.fields = [
+          "X", "0", "X",
+          "0", "0", "X",
+          "X", "X", "0",
+        ]
       end
 
       it "returns true" do
@@ -145,30 +145,38 @@ RSpec.describe TicTacToe::Board do
     context "for a partially filled board" do
       before do
         subject.fields = [
-          "X", nil, nil,
+          nil, nil, nil,
           "0", nil, "X",
           nil, "X", "0"
         ]
       end
 
-      it "returns a copy of the board with the updated move" do
-        expected_fields = [
-          "X", "X", nil,
-          "0", nil, "X",
-          nil, "X", "0"
-        ]
-        new_board = subject.with_move(field: 2, symbol: "X")
-        expect(subject).to_not eq new_board
-        expect(new_board.fields).to eq(expected_fields)
+      it "returns a copy of the board" do
+        new_board = subject.with_move(field: 1, symbol: "ANY")
+        expect(new_board.object_id).to_not eq(subject.object_id)
+      end
+
+      it "sets applies the provided symbol to the given field" do
+        expect(subject.fields[1]).to be_nil
+        new_board = subject.with_move(field: 1, symbol: "🍺")
+        expect(new_board.fields[1]).to eq("🍺")
+      end
+
+      it "keeps all pre-existing fields" do
+        new_board = subject.with_move(field: 1, symbol: "🍺")
+
+        (2..9).each do |position|
+          expect(new_board.fields[position]).to eq subject.fields[position]
+        end
       end
     end
   end
 
   describe "#update" do
     it "updates fields with the given symbol" do
-      expect(subject.fields[0]).to be_nil
+      expect(subject.fields[1]).to be_nil
       subject.update field: 1, symbol: "π"
-      expect(subject.fields[0]).to eq("π")
+      expect(subject.fields[1]).to eq("π")
     end
   end
 
