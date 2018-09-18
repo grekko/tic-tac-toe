@@ -6,6 +6,7 @@ group :development, :test do
   gem "pry"
   gem "pry-byebug"
   gem "rake"
+  gem "bummr"
 end
 
 group :test do
