@@ -3,4 +3,4 @@ bundler_args: --without develpoment
 rvm:
   - 2.3.1
   - 2.2.0
-  - 2.1.5
+  - 2.4.0
