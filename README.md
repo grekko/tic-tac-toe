@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/grekko/tic-tac-toe.svg?branch=master)](https://travis-ci.org/grekko/tic-tac-toe)
 [![Test Coverage](https://codeclimate.com/github/grekko/tic-tac-toe/badges/coverage.svg)](https://codeclimate.com/github/grekko/tic-tac-toe/coverage)
+[![Depfu](https://badges.depfu.com/badges/67dada58395f7b8afa5a39083f31f331/count.svg)](https://depfu.com/github/grekko/tic-tac-toe?project_id=4934)
 
 A naive or *creative* ruby implementation of an unbeatable tic-tac-toe program.
 For a more scientific approach check out the article ["Tic Tac Toe: Understanding The Minimax Algorithm"](http://neverstopbuilding.com/minimax).
