@@ -84,11 +84,11 @@ RSpec.describe TicTacToe::Board do
 
     context "for a full board" do
       before do
-        subject.fields = %w(
+        subject.fields = %w[
           X 0 X
           0 0 X
           X X 0
-        )
+        ]
       end
 
       it "returns true" do

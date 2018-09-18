@@ -3,10 +3,10 @@
 source "https://rubygems.org"
 
 group :development, :test do
+  gem "bummr"
   gem "pry"
   gem "pry-byebug"
   gem "rake"
-  gem "bummr"
 end
 
 group :test do

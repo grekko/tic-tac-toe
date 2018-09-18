@@ -41,7 +41,7 @@ class TicTacToe
     end
 
     def picked_fields
-      fields.select { |_, symbol| !symbol.nil? }.keys
+      fields.reject { |_, symbol| symbol.nil? }.keys
     end
 
     def full?

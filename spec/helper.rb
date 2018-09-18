@@ -67,6 +67,7 @@ class CliParsedBoard
 
   def to_a
     return unless match
+
     match.captures.map { |line| line.split("|").map(&:strip) }.flatten
   end
 

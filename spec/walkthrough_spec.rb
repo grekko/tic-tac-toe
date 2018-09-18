@@ -3,7 +3,7 @@
 require "helper"
 
 describe "Acceptance test for Human vs. Human play" do
-  let(:path_to_cmd) { File.expand_path("../../bin/tictactoe", __FILE__) }
+  let(:path_to_cmd) { File.expand_path("../bin/tictactoe", __dir__) }
   let(:process)     { SpawnedProcess.new path_to_cmd }
 
   before do
@@ -39,65 +39,65 @@ describe "Acceptance test for Human vs. Human play" do
     # Expect board to be rendered
     board = CliParsedBoard.new(stdout)
     expect(stdout).to include "Player 1 (X, Human), its your turn."
-    expect(board.to_a).to eq %w(
+    expect(board.to_a).to eq %w[
       1 2 3
       4 5 6
       7 8 9
-    )
+    ]
     expect(stdout).to include "Pick an empty field (1, 2, 3, 4, 5, 6, 7, 8, 9):"
 
     # Expect board to be updated
     stdout = process.puts "5"
     board = CliParsedBoard.new(stdout)
     expect(stdout).to include "Player 2 (0, Human), its your turn."
-    expect(board.to_a).to eq %w(
+    expect(board.to_a).to eq %w[
       1 2 3
       4 X 6
       7 8 9
-    )
+    ]
     expect(stdout).to include "Pick an empty field (1, 2, 3, 4, 6, 7, 8, 9):"
     stdout = process.puts "1"
 
     # Expect board to be updated
     board = CliParsedBoard.new(stdout)
     expect(stdout).to include "Player 1 (X, Human), its your turn."
-    expect(board.to_a).to eq %w(
+    expect(board.to_a).to eq %w[
       0 2 3
       4 X 6
       7 8 9
-    )
+    ]
     expect(stdout).to include "Pick an empty field (2, 3, 4, 6, 7, 8, 9):"
     stdout = process.puts "8"
 
     # Expect board to be updated
     board = CliParsedBoard.new(stdout)
     expect(stdout).to include "Player 2 (0, Human), its your turn."
-    expect(board.to_a).to eq %w(
+    expect(board.to_a).to eq %w[
       0 2 3
       4 X 6
       7 X 9
-    )
+    ]
     expect(stdout).to include "Pick an empty field (2, 3, 4, 6, 7, 9):"
     stdout = process.puts "4"
 
     # Expect board to be updated
     board = CliParsedBoard.new(stdout)
     expect(stdout).to include "Player 1 (X, Human), its your turn."
-    expect(board.to_a).to eq %w(
+    expect(board.to_a).to eq %w[
       0 2 3
       0 X 6
       7 X 9
-    )
+    ]
     expect(stdout).to include "Pick an empty field (2, 3, 6, 7, 9):"
     stdout = process.puts "2"
 
     # Expect game to be over and final board being displayed
     board = CliParsedBoard.new(stdout)
-    expect(board.to_a).to eq %w(
+    expect(board.to_a).to eq %w[
       0 X 3
       0 X 6
       7 X 9
-    )
+    ]
     expect(stdout).to include "Congrats! Player 1 (X, Human) won!"
     expect(stdout).to include "Want to play another round? (Y/N)"
 

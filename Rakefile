@@ -5,9 +5,9 @@ require "rubocop/rake_task"
 
 desc "Run all specs"
 RSpec::Core::RakeTask.new :spec do |t|
-  t.ruby_opts = %w(-w)
+  t.ruby_opts = %w[-w]
 end
 
 RuboCop::RakeTask.new
 
-task default: %i(spec rubocop)
+task default: %i[spec rubocop]

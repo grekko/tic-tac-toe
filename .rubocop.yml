@@ -1,7 +1,10 @@
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
   Enabled: false
 
 Style/TrailingCommaInArguments:
@@ -9,3 +12,7 @@ Style/TrailingCommaInArguments:
 
 Metrics/LineLength:
   Max: 100
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
