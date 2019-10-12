@@ -24,7 +24,7 @@ GEM
     diff-lcs (1.2.5)
     docile (1.1.5)
     gherkin (4.0.0)
-    highline (1.7.8)
+    highline (2.0.3)
     jaro_winkler (1.5.1)
     json (2.0.2)
     method_source (0.8.2)
