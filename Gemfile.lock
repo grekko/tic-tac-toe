@@ -26,7 +26,7 @@ GEM
     gherkin (4.0.0)
     highline (1.7.8)
     jaro_winkler (1.5.1)
-    json (2.0.2)
+    json (2.3.0)
     method_source (0.8.2)
     multi_json (1.12.1)
     multi_test (0.1.2)
